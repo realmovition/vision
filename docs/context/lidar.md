@@ -1,6 +1,6 @@
 # Lidar Module Context
 
-This document defines the current public architecture for `vision/lidar/`, whose
+This document defines the current public architecture for `pointcloud/`, whose
 goal is to grow into an open source replacement for the foundational lidar
 capabilities commonly consumed from DriveWorks.
 
@@ -42,10 +42,10 @@ public API is shaped around device-accessible memory from day one.
 The lidar code lives under:
 
 ```text
-vision/lidar/
+pointcloud/
 ```
 
-The camera code now lives separately under `vision/camera/`. This split is
+The camera code now lives separately under `calibration/`. This split is
 intentional and should remain stable because the lidar package is expected to
 grow around GPU memory management, stream-aware kernels, and DriveWorks-style
 throughput concerns.
@@ -53,7 +53,7 @@ throughput concerns.
 ## Current module layout
 
 ```text
-vision/lidar/
+pointcloud/
   BUILD.bazel
   lidar.h
   types.h
@@ -70,7 +70,7 @@ vision/lidar/
     rigid_transform.h
   runtime/
     cuda_stream.h
-  filters/
+  filter/
     crop_box_filter.h
     crop_box_filter.cu
     decimation_filter.h
@@ -89,8 +89,8 @@ vision/lidar/
 Planned next foundational subdirectories:
 
 ```text
-vision/lidar/
-  filters/
+pointcloud/
+  filter/
   registration/
   segmentation/
   fusion/
@@ -100,19 +100,19 @@ vision/lidar/
 
 The current public targets are:
 
-- `@vision//vision/lidar:types`
-- `@vision//vision/lidar:buffer`
-- `@vision//vision/lidar:buffer_pool`
-- `@vision//vision/lidar:core`
-- `@vision//vision/lidar:runtime`
-- `@vision//vision/lidar:filters`
-- `@vision//vision/lidar:range_image`
-- `@vision//vision/lidar:lidar`
+- `@vision//pointcloud:types`
+- `@vision//pointcloud:buffer`
+- `@vision//pointcloud:buffer_pool`
+- `@vision//pointcloud:core`
+- `@vision//common:cuda_stream`
+- `@vision//pointcloud:filter`
+- `@vision//pointcloud:range_image`
+- `@vision//pointcloud:pointcloud`
 
 The umbrella header for external consumers is:
 
 ```cpp
-#include "vision/lidar/lidar.h"
+#include "pointcloud/core/point_cloud.h"
 ```
 
 ## Data model invariants
@@ -180,7 +180,7 @@ Implemented today:
 - `BufferPool`
 - `PointCloudView`
 - `PointCloudBuffer`
-- `runtime/cuda_stream.h`
+- `common/cuda/cuda_stream.h`
 - `RigidTransform3f`
 - spherical GPU `RangeImageBuilder`
 - stream-aware `RangeImageBuilder::BuildAsync`
@@ -200,13 +200,13 @@ Not implemented yet, but expected in the base library roadmap:
 Inside a CUDA-enabled environment:
 
 ```bash
-bazel test --config=gpu --@rules_cuda//cuda:archs=compute_89:sm_89 //vision/lidar:all
+bazel test --config=gpu --@rules_cuda//cuda:archs=compute_89:sm_89 //pointcloud:all
 ```
 
 Or via the repository container entrypoint:
 
 ```bash
-docker/scripts/whl.sh 'bazel test //vision/lidar:all --config=gpu --@rules_cuda//cuda:archs=compute_89:sm_89'
+docker/scripts/whl.sh 'bazel test //pointcloud:all --config=gpu --@rules_cuda//cuda:archs=compute_89:sm_89'
 ```
 
 ## Next parity steps after the initial Range Image milestone

@@ -6,7 +6,7 @@ wider project into a more production-ready package.
 ## High priority
 
 1. **Add CI gates**
-   - Run `bazel test //vision/camera:all` and the CUDA lidar test entrypoints in
+   - Run `bazel test //calibration:all` and the CUDA lidar test entrypoints in
      a clean environment on every change.
    - Add formatting and static analysis checks as mandatory quality gates.
 

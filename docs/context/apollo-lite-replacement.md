@@ -1,6 +1,6 @@
 # Apollo-lite Replacement Mapping
 
-This document records how `vision/lidar/` is being shaped so it can eventually
+This document records how `pointcloud/` is being shaped so it can eventually
 replace the current lidar preprocessing substrate used in
 `apollo-lite/modules/perception/lidar/lib/` while also staying aligned with the
 broader DriveWorks-replacement goal.
@@ -23,13 +23,13 @@ ownership and stable interfaces.
 
 ## Current Apollo-lite responsibilities and target mapping
 
-| Apollo-lite responsibility | Current or planned `vision/lidar` module |
+| Apollo-lite responsibility | Current or planned `pointcloud` module |
 | --- | --- |
-| finite-point filtering | `filters/CropBoxFilter` with `reject_non_finite=true` |
-| nearby ego-box removal | `filters/CropBoxFilter` with `mode=kRemoveInside` |
-| height-window filtering | `filters/CropBoxFilter` with a configured `z` interval |
-| simple deterministic downsample | `filters/DecimationFilter` |
-| voxel grid downsample | planned `filters/VoxelGridFilter` |
+| finite-point filtering | `filter/CropBoxFilter` with `reject_non_finite=true` |
+| nearby ego-box removal | `filter/CropBoxFilter` with `mode=kRemoveInside` |
+| height-window filtering | `filter/CropBoxFilter` with a configured `z` interval |
+| simple deterministic downsample | `filter/DecimationFilter` |
+| voxel grid downsample | planned `filter/VoxelGridFilter` |
 | frame fusion | planned `fusion/` accumulation and stitching modules |
 | cloud-to-array export | planned tensor/feature export surface |
 | stage-local temporary storage | explicit workspaces and `BufferPool` reuse |
@@ -62,11 +62,11 @@ The current repository now has the first replacement-oriented building blocks:
 
 - `PointCloudView` and `PointCloudBuffer`
 - `Buffer` and `BufferPool`
-- `runtime/cuda_stream.h`
+- `common/cuda/cuda_stream.h`
 - `RangeImageBuilder::BuildAsync`
-- `filters/DecimationFilter`
-- `filters/CropBoxFilter`
-- `filters/CropBoxFilterWorkspace`
+- `filter/DecimationFilter`
+- `filter/CropBoxFilter`
+- `filter/CropBoxFilterWorkspace`
 
 That means the library can already express the same broad category of work as
 Apollo-lite's early preprocessing stages, but with more reusable module

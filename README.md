@@ -1,5 +1,5 @@
 # vision
-Low-level camera and lidar foundation libraries
+Low-level calibration and pointcloud foundation libraries
 
 # Quick Start
 
@@ -12,13 +12,13 @@ sudo bash scripts/deps/install_bazel.sh
 ## Build
 
 ```
-bazel build //vision/camera:all
+bazel build //calibration:all
 ```
 
 ## Test
 
 ```
-bazel test //vision/camera:all
+bazel test //calibration:all
 ```
 
 ## GPU Lidar Build
@@ -26,13 +26,13 @@ bazel test //vision/camera:all
 For the GPU-native lidar package:
 
 ```bash
-bazel test --config=gpu --@rules_cuda//cuda:archs=compute_89:sm_89 //vision/lidar:all
+bazel test --config=gpu --@rules_cuda//cuda:archs=compute_89:sm_89 //pointcloud:all
 ```
 
 Or build in the provided CUDA container:
 
 ```bash
-docker/scripts/whl.sh 'bazel test //vision/lidar:all --config=gpu --@rules_cuda//cuda:archs=compute_89:sm_89'
+docker/scripts/whl.sh 'bazel test //pointcloud:all --config=gpu --@rules_cuda//cuda:archs=compute_89:sm_89'
 ```
 
 ## Public C++ API
@@ -42,11 +42,11 @@ docker/scripts/whl.sh 'bazel test //vision/lidar:all --config=gpu --@rules_cuda/
 Canonical dependency and include:
 
 ```cpp
-#include "vision/camera/camera.h"
+#include "calibration/camera_model.h"
 ```
 
 ```text
-@vision//vision/camera:camera
+@vision//calibration:calibration
 ```
 
 The camera module provides self-implemented projection and back-projection
@@ -62,11 +62,11 @@ models:
 Canonical dependency and include:
 
 ```cpp
-#include "vision/lidar/lidar.h"
+#include "pointcloud/core/point_cloud.h"
 ```
 
 ```text
-@vision//vision/lidar:lidar
+@vision//pointcloud:pointcloud
 ```
 
 The first lidar release exposes:

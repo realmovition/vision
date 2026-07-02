@@ -8,17 +8,17 @@ after separating camera and lidar into standalone directories.
 The camera implementation now lives under:
 
 ```text
-vision/camera/
+calibration/
 ```
 
 Recommended public dependency and include:
 
 ```cpp
-#include "vision/camera/camera.h"
+#include "calibration/camera_model.h"
 ```
 
 ```text
-@vision//vision/camera:camera
+@vision//calibration:calibration
 ```
 
 ## Compatibility policy
@@ -26,8 +26,8 @@ Recommended public dependency and include:
 There is no root-level compatibility wrapper anymore. Camera code must depend on
 the canonical package directly:
 
-- `@vision//vision/camera:camera`
-- `#include "vision/camera/camera.h"`
+- `@vision//calibration:calibration`
+- `#include "calibration/camera_model.h"`
 
 ## Why split camera and lidar
 
@@ -48,5 +48,5 @@ boundaries much clearer.
 ## Validation commands
 
 ```bash
-bazel test //vision/camera:all
+bazel test //calibration:all
 ```

@@ -26,7 +26,7 @@ most useful context close to the codebase:
 - `driveworks-replacement.md`: staged roadmap for DriveWorks-class lidar base
   library parity.
 - `apollo-lite-replacement.md`: mapping from Apollo-lite lidar preprocessing
-  responsibilities to the modular `vision/lidar` replacement plan.
+  responsibilities to the modular `pointcloud` replacement plan.
 - `todo.md`: near-term and medium-term backlog for production hardening.
 - `context-practices.md`: how to keep this directory useful over time.
 - `adr-template.md`: template for future Architecture Decision Records.

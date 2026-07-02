@@ -1,0 +1,27 @@
+cc_library(
+    name = "types",
+    hdrs = ["types.h"],
+    visibility = ["//visibility:public"],
+)
+
+cc_library(
+    name = "cuda_types",
+    hdrs = ["cuda/cuda_types.h"],
+    visibility = ["//visibility:public"],
+)
+
+cc_library(
+    name = "cuda_stream",
+    hdrs = ["cuda/cuda_stream.h"],
+    deps = [":cuda_types"],
+    visibility = ["//visibility:public"],
+)
+
+cc_library(
+    name = "common",
+    deps = [
+        ":cuda_stream",
+        ":types",
+    ],
+    visibility = ["//visibility:public"],
+)

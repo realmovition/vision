@@ -1,6 +1,6 @@
 # DriveWorks Replacement Roadmap
 
-This document tracks the architectural path for turning `vision/lidar/` into an
+This document tracks the architectural path for turning `pointcloud/` into an
 open source lidar base library that can replace the foundational lidar building
 blocks commonly consumed from DriveWorks.
 
@@ -20,8 +20,8 @@ capability parity** for the base lidar layer:
 The repository is now intentionally split into separate domains:
 
 ```text
-vision/camera/   # camera models and camera-only math
-vision/lidar/    # lidar data, memory, preprocessing, and future fusion stack
+calibration/   # camera models and camera-only math
+pointcloud/    # lidar data, memory, preprocessing, and future fusion stack
 ```
 
 This split matters because DriveWorks-style lidar processing optimizes for GPU
@@ -58,11 +58,11 @@ library should follow these rules:
 
 Already implemented:
 
-- separate `vision/lidar/` package
+- separate `pointcloud/` package
 - `PointCloudView` with planar/interleaved metadata
 - `PointCloudBuffer` with owned planar/interleaved allocation
 - `Buffer` and `BufferPool`
-- `runtime/cuda_stream.h`
+- `common/cuda/cuda_stream.h`
 - `RigidTransform3f`
 - GPU-native spherical Range Image generation
 - stream-aware `RangeImageBuilder::BuildAsync`

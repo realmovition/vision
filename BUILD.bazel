@@ -1,0 +1,23 @@
+alias(
+    name = "common",
+    actual = "//common:common",
+    visibility = ["//visibility:public"],
+)
+
+alias(
+    name = "calibration",
+    actual = "//calibration:calibration",
+    visibility = ["//visibility:public"],
+)
+
+alias(
+    name = "image",
+    actual = "//image:image",
+    visibility = ["//visibility:public"],
+)
+
+alias(
+    name = "pointcloud",
+    actual = "//pointcloud:pointcloud",
+    visibility = ["//visibility:public"],
+)

@@ -33,7 +33,7 @@ CUDA_ARCHS="${CUDA_ARCHS:-compute_${GPU_CAPABILITY}:sm_${GPU_CAPABILITY}}"
 if [[ $# -gt 0 ]]; then
   BAZEL_COMMAND="$*"
 else
-  BAZEL_COMMAND="bazel test --config=gpu --@rules_cuda//cuda:archs=${CUDA_ARCHS} //vision/lidar:all"
+  BAZEL_COMMAND="bazel test --config=gpu --@rules_cuda//cuda:archs=${CUDA_ARCHS} //pointcloud:all"
 fi
 
 RUNTIME_IMAGE="${IMAGE_NAME}"
